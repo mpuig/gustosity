@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>Gustosity</title>
+    <link rel="stylesheet" type="text/css" href="jquery.vegas.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:regular,bold">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+    <script type="text/javascript" src="jquery.vegas.js"></script>
+    <script type="text/javascript">
+        $(function() {
+          $.vegas({
+            src:'images/02.jpg'
+          });
+          $.vegas('overlay', {
+            src:'overlays/04.png'
+          });
+        });
+    </script>
+    <style type="text/css">
+        html {}
+        body {
+            background:#000;
+            color:#FFF;
+            font:12px 'PT Sans Narrow', sans-serif;
+            top:0;
+            left:0;
+            position:absolute;
+            height:100%;
+            width:100%;
+            margin:5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Something tasty is coming...</h1>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1571650-42']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</body>
+</html>

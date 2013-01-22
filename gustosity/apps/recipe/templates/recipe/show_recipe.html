@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n account_tags recipe_tags %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+{% if recipe.user == request.user %}{% csrf_token %}{% endif %}
+
+<div class="row-fluid sidebar-right">
+
+  <div class="span9 blog-detail primary-column">
+    <header class="entry-header">
+    <h1>{{ recipe.name }}</h1>
+    {% if recipe.source or recipe.original %}
+    <div class="entry-meta">
+      {% if recipe.original %}<i class="icon-retweet"></i> {% trans "Forked from" %} <a href="{{ recipe.original.get_absolute_url }}">{{ recipe.original }}</a>{% if recipe.source %}<br>{% endif %}{% endif %}
+      {% if recipe.source %}{% trans "Source" %}: <a href="{{ recipe.source }}">{{ recipe.source }}</a>{% endif %}
+    </div>
+    {% endif %}
+    {% if recipe.source %}<strong>{% trans "Source" %}:</strong> <a href="{{ recipe.source }}">{{ recipe.source }}</a>{% endif %}
+
+    <div class="byline">
+      {% if recipe.category %}{% trans "Category:" %} <a class="btn btn-small btn-very-subtle" href="{% url 'recipes_byfilter' recipe.category.slug %}" title="{% trans "View more recipes with the same category" %}"><i class="icon-tag"></i> {{ recipe.category }}</a>&nbsp;&nbsp;{% endif %}
+      {% if recipe.difficulty %}{% trans "Difficulty:" %} <a class="btn btn-small btn-very-subtle" href="{% url 'recipes_byfilter' recipe.difficulty %}" title="{% trans "View more recipes with the same difficulty" %}"><i class="icon-fire"></i> {{ recipe.get_difficulty_display }}</a>{% endif %}
+      <span class="pull-right">
+      <a class="btn btn-small btn-very-subtle" href="{% url 'recipe_forks' recipe.user.username recipe.slug %}"><i class="icon-retweet"></i> {{ recipe.total_forks }}</a>
+      <a id="likecounter" class="btn btn-small{% if not recipe|likes:request.user %} btn-very-subtle{% endif %}" href="{% url 'recipe_fans' recipe.user.username recipe.slug %}"><i class="icon-heart"></i> <span id="totallikes">{{ recipe.total_likes }}</span></a>
+      <span class="btn btn-small btn-very-subtle"><i class="icon-eye-open"></i> {{ recipe.total_views }}</span>
+      </span>
+    </div>
+    </header>
+
+    <div class="entry-content">
+
+      {% if recipe.cover or recipe.summary %}
+        <div class="clearfix">
+          <h3>{% trans "Summary" %}</h3>
+          {% if recipe.cover %}<img class="alignleft" src="{{ recipe.cover.url }}" alt="{{ recipe }}"/>{% endif %}
+          {% if recipe.summary %}{{ recipe.summary|linebreaks }}{% endif %}
+          </div>
+          <hr>
+      {% endif %}
+
+
+      <h3>{% trans "Directions" %}</h3>
+      {% if recipe.user == request.user %}
+        <div id="stepsapp">
+          <ul id="steps-list"></ul>
+          <textarea class="span9 desc" id="new-step" type="text" placeholder="Add step"></textarea>
+        </div>
+      {% else %}
+        {% with recipe.steps.all as steps %}
+          {% if steps %}
+            {% for step in steps %}
+              <div class="clearfix">
+              {% if step.thumbnail %}<img class="alignright" src="{{ step.thumbnail.url }}" alt="Step {{ forloop.counter }} - {{ recipe }}"/>{% endif %}
+              {{ step.description|linebreaks }}
+              </div>
+              <hr>
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
+      {% endif %}
+
+
+
+    </div><!-- .entry-content -->
+    <div class="entry-footer">
+      <a href="{{ recipe.user.get_absolute_url }}" title="{% trans "View all recipes by" %} {{ recipe.user }}"><img class="avatar" src="{{ recipe.user.profile.get_avatar_url }}" /></a>
+    </div>
+  </div><!-- .blog-detail -->
+
+  <div class="span3 sidebar secondary-column"><!-- Sidebar -->
+    <aside class="widget">
+
+      {% if request.user.is_authenticated %}
+        <ul class="">
+          {% if recipe.user == request.user %}
+            <a class="btn" href="{% url 'recipe_edit' recipe.user.username recipe.slug %}">{% trans "edit recipe" %}</a>&nbsp;&nbsp;
+            <a class="btn" href="{% url 'recipe_delete' recipe.user.username recipe.slug %}">{% trans "delete" %}</a>
+            {% else %}
+            <a class="btn" href="{% url 'ajax-recipe_fork' recipe.user.username recipe.slug %}"><i class="icon-retweet"></i> {% trans "Fork it" %}</a>&nbsp;&nbsp;
+            <a id="likebtn" class="btn" href="#"><i class="icon-heart"></i> <span id="liketext">{% if recipe|likes:request.user %}{% trans "Unlike" %}{% else %}{% trans "I like!" %}{% endif %}</span></a>
+          {% endif %}
+        </ul>
+      {% endif %}
+
+      {% if recipe.prep_minutes or recipe.cook_minutes %}
+        <h5 class="short_headline"><span>{% trans "Times" %}</span></h5>
+        <ul class="navigation">
+          {% if recipe.prep_minutes %}<li><strong>{% trans "Preparation time" %}:</strong> {{ recipe.prep_minutes }} min.</li>{% endif %}
+          {% if recipe.cook_minutes %}<li><strong>{% trans "Cooking time" %}:</strong> {{ recipe.cook_minutes }} min.</li>{% endif %}
+        </ul>
+      {% endif %}
+
+      {% if recipe.ingredients %}
+        <h5 class="short_headline"><span>{% trans "Ingredients" %}</span>
+        </h5>
+
+        {% if recipe.user == request.user %}
+          <div id="ingredientsapp">
+            <ul class="navigation" id="ingredients-list"></ul>
+            <div class="addingredient clearfix">
+            <input id="new-ingredient" type="text" placeholder="New ingredient">
+            <label class="checkbox"><input type="checkbox" id="new-optional">optional ingredient</label>
+            <button id="addnewingredient" class="btn btn-small btn-success save-btn pull-right"> Add</button>
+            </div>
+          </div>
+        {% else %}
+          <ul class="navigation">
+            {% for ingredient in recipe.ingredients.all %}
+            <li>{{ ingredient }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endif %}
+      </aside>
+
+      <aside class="widget">
+      {% with same_chef=recipe.get_other_same_chef|slice:":4" %}
+        {% if same_chef %}
+          <h5 class="short_headline"><span>{% trans "More by" %} {{ recipe.user }}</span></h5>
+            <ul class="gallery two_col clearfix blog-summary-grid isotope">
+              {% for recipe in same_chef %}{% include "_recipe_box_hover.html" %}{% endfor %}
+            </ul>
+        {% endif %}
+      {% endwith %}
+
+      {% with same_category=recipe.get_other_same_category|slice:":4" %}
+        {% if same_category %}
+          <h5 class="short_headline"><span>{% trans "More in" %} {{ recipe.category|lower }}</span></h5>
+            <ul class="gallery two_col clearfix blog-summary-grid isotope">
+              {% for recipe in same_category %}{% include "_recipe_box_hover.html" %}{% endfor %}
+            </ul>
+        {% endif %}
+      {% endwith %}
+      </aside>
+
+    </div>
+  </div>
+
+  <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  {% csrf_token %}
+{% endblock %}
+
+{% block extracss %}
+{% if recipe.user == request.user %}
+  <link href="/static/css/jquery.backbone.widgets.css" rel="stylesheet">
+  <link href="/static/file-uploader/fineuploader.css" rel="stylesheet">
+{% endif %}
+{% endblock extracss %}
+
+{% block extrajs %}
+
+{% include "recipe/_backbone.html" %}
+<script type="text/javascript">
+  {% if recipe.user == request.user %}
+    var urlRecipe = "/api/recipes/{{ recipe.pk }}";
+    var recipeId = "{{ recipe.pk }}";
+    var recipeSlug = "{{ recipe.slug }}";
+    var recipeUser = "{{ recipe.user.username }}";
+
+    $(function(){
+      new IngredientsEditView();
+      new StepsEditView();
+    });
+  {% else %}
+
+    // using jQuery
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $(function(){
+      $(document).on('click', "#likebtn", function(event) {
+        event.preventDefault();
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/api/recipes/{{ recipe.pk }}/like',
+            success: function(response) {
+                $('#totallikes').html(response.count);
+                if (response.message === 'Like successfully') {
+                  $('#liketext').html('Unlike');
+                  $('#likecounter').removeClass('btn-very-subtle');
+                } else {
+                  $('#liketext').html('I like');
+                  $('#likecounter').addClass('btn-very-subtle');
+                }
+            }
+        });
+      });
+    });
+  {% endif %}
+</script>
+{% endblock %}

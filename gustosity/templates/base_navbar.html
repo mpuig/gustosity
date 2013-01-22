@@ -1,0 +1,71 @@
+{% load url from future %}
+{% load i18n %}
+
+<section class="container preheader">
+
+  {% if not request.user.is_authenticated %}
+
+    {% url 'registration_register' as url_signup %}
+    <!--this is the login for the user-->
+    <nav class="user clearfix"> <a href="{% url 'auth_login' %}"><i class="icon-user"></i> {% trans "Login" %}</a> </nav>
+    <!--close user nav-->
+  {% else %}
+  <nav class="user clearfix">
+    <a href="{% url 'edit_profile' %}"><i class="icon-edit"></i> {% trans "Edit profile" %}</a>
+    <a href="{% url 'auth_logout' %}"><i class="icon-signout"></i> {% trans "Logout" %}</a>
+  </nav>
+  {% endif %}
+
+  <div class="search-wrapper">
+    <form class="search" method="get" action="/search/">
+      <input id="search-box" name="q" type="text" placeholder="search recipes">
+    </form>
+  </div>
+
+  <ul class="social">
+  {% comment %}
+    <li><a class="socicon small rss" href="#" data-placement="bottom" title="Subscribe to our RSS feed"></a></li>
+    <li><a class="socicon small facebook" href="#" data-placement="bottom" title="Follow us on Facebook"></a></li>
+  {% endcomment %}
+    <li><a class="socicon small twitterbird" href="http://twitter.com/gustosity" data-placement="bottom" title="Follow us on Twitter"></a></li>
+  </ul>
+</section>
+
+<!-- begin .header-->
+<header class="header  clearfix">
+  {% comment %}<img src="/static/images/print-logo.png" class="print logo" alt="name of company" />{% endcomment %}
+  <div class="container">
+
+    <!-- begin #main_menu -->
+    <nav id="main_menu">
+      <ul class="accordmobile">
+          <li{% if request.path == '/' or request.path|slice:"1:-1" == request.user.username %} class="active"{% endif %}>
+            {% if request.user.is_authenticated %}
+              <a href="/{{ request.user.username }}/">{% trans "Dashboard" %}</a>
+            {% else %}
+              <a href="/">{% trans "Home" %}</a>
+            {% endif %}
+          </li>
+          <li{% if request.path|slice:":3" == '/r/' %} class="active"{% endif %}><a href="/r/featured/">{% trans "Browse" %}</a></li>
+          {% if request.user.is_authenticated %}
+          {% url 'recipe_new' as url_new %}
+          <li{% if request.path == url_new %} class="active"{% endif %}><a href="{{ url_new }}">{% trans "Add new recipe" %}</a></li>
+          {% else %}
+          {% url 'plans' as url_plans %}
+          <li{% if request.path == url_plans %} class="active"{% endif %}><a href="{{ url_plans }}">{% trans "Plans & Pricing" %}</a></li>
+          {% endif %}
+          <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <!-- close / #main_menu -->
+
+    <!-- begin #logo -->
+    <div id="logo">
+      <a href="/"><img alt="" src="/static/images/trans.gif" /><em>Share cooking recipes without the mess</em><!--effing ie7 support--></a> </div>
+    <!-- end #logo -->
+
+  </div>
+  <!-- close / .container-->
+</header>
+<!-- close /.header -->
+

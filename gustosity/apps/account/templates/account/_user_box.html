@@ -1,0 +1,25 @@
+<li>
+<footer class="comment-meta  clearfix">
+
+    <a href="{{ chef.get_absolute_url }}"><img class="avatar" src="{{ chef.profile.get_avatar_url }}"></a>
+    <div class="comment-meta">
+        <span class="comment-author vcard">
+            <cite><a href="{{ chef.get_absolute_url }}">{{ chef }}</a></cite>
+        </span>
+        <a href="{{ chef.get_absolute_url }}">{{ chef.profile.total_recipes }} recipes</a> |
+        <a href="{% url user_followers chef.username %}">{{ chef.profile.total_followers }} followers</a>
+    </div>
+
+    <span class="pull-right">
+    {% for recipe in chef.recipes.all|slice:":4" %}
+        <div class="minirecipe pull-right">
+            <a href="{{ recipe.get_absolute_url }}" class="titletip" title="{{ recipe.name|truncatechars:60 }}">
+                {% if recipe.mini_thumbnail %}<img src="{{ recipe.mini_thumbnail.url }}" alt="{{ recipe }}"/>
+                {% else %}No image{% endif %}
+            </a>
+        </div>
+    {% endfor %}
+    </span>
+
+</footer>
+</li>

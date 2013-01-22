@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}Recipes {{ chef }}'s likes{% endblock %}
+
+
+{% block content %}
+
+<div class="row-fluid">
+
+  {% include "account/_user_info.html" %}
+
+  <div class="span9">
+    {% include "account/_user_tabs.html" %}
+    <div class="entry-content">
+        <ul class="gallery four_col clearfix blog-summary-grid isotope">
+          {% if recipes %}{% for recipe in recipes %}{% include "_recipe_box.html" %}{% endfor %}{% endif %}
+        </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

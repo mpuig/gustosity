@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n activity_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+
+    <div class="row-fluid">
+        {% include "account/_user_info.html" %}
+
+        <div class="span9">
+            {% include "account/_user_tabs.html" %}
+        <ul class="gallery four_col clearfix blog-summary-grid isotope">
+          {% if recipes %}{% for recipe in recipes %}{% include "_recipe_box.html" %}{% endfor %}{% endif %}
+        </ul>
+        </div>
+
+    </div><!--/row-->
+
+
+{% endblock %}

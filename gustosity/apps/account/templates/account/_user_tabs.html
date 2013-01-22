@@ -1,0 +1,24 @@
+{% load url from future %}
+{% load i18n %}
+
+<header class="entry-header clearfix">
+
+    <h1>{{ chef.get_full_name }} <small>{{ extra_title }}</small></h1>
+    <div class="content-tabs">
+        <ul class="tabs">
+            <li class="tab">
+                <a{% if request.path|slice:"1:-1" == chef.username %} class="active" {% endif %} href="{{ chef.get_absolute_url }}">
+                <i class="icon-book"></i> {{ chef.profile.total_recipes }} {% trans "recipes" %}</a></li>
+            <li class="tab">
+                <a{% if request.path|slice:"-6:-1" == 'likes' %} class="active"{% endif %} href="{% url 'user_likes' chef.username %}">
+                <i class="icon-heart"></i> {{ chef.profile.get_likes_count }} {% trans "likes" %}</a></li>
+            <li class="tab">
+                <a{% if request.path|slice:"-10:-1" == 'following' %} class="active"{% endif %} href="{% url 'user_following' chef.username %}">
+                <i class="icon-group"></i> {{ chef.profile.total_following }} {% trans "following" %}</a></li>
+            <li class="tab">
+                <a{% if request.path|slice:"-10:-1" == 'followers' %} class="active"{% endif %} href="{% url 'user_followers' chef.username %}">
+                <i class="icon-group"></i> <span id="totalfollows">{{ chef.profile.total_followers }}</span> {% trans "followers" %}</a></li>
+        </ul>
+    </div>
+
+</header>

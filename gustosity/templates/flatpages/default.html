@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n flatpages %}
+
+{% block title %}{{ flatpage.title }}{% endblock title %}
+
+{% block content %}
+
+<div class="hero-unit">
+    <h1>{{ flatpage.title }}</h1>
+</div>
+
+<div class="row-fluid">
+    <div class="span9">
+        {{ flatpage.content|linebreaks }}
+    </div>
+    <div class="span3">
+        {% get_flatpages as flatpages %}
+        <ul class="navigation">
+            {% for page in flatpages %}
+                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+            {% endfor %}
+            <li><a href="/contact/">{% trans "Contact" %}</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,7 @@
+{% load url from future %}
+{% load activity_tags %}
+<ul>
+{% for action in stream %}
+    <li>{% display_action action %}</li>
+{% endfor %}
+</ul>

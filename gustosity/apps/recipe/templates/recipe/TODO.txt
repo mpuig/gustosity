@@ -1,0 +1,37 @@
+TODO
+
+- registre via facebook/twitter
+- sistema pagament
+- afegir idioma de la recepta
+- poder reorganitzar els passos d'una recepta
+- sistema d'ingredients inline
+
+- API
+
+
+
+PREMIUM
+- https://500px.com/upgrade
+- https://github.com/plans
+- http://evernote.com/premium/
+
+free
+- unlimited open recipes
+- 1 image per recipe
+- no private recipes
+
+premium
+- 5€/mo o 40€/yr
+- codi QR en les receptes públiques
+- amagar publicitat
+- descarregar versió PDF
+- versió offline en dispositius mòbils
+- imatges en els passos
+- videos
+- fins a 100 receptes privades
+- author intro
+
+premium plus
+- 25€/mo o 150€/yr
+- statistics
+- més de 100 receptes privades

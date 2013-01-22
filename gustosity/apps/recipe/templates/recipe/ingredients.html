@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n account_tags %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+<div class="row-fluid">
+  <ul>
+  {% for ingredient in ingredients %}
+    <li>{{ ingredient }}</li>
+  {% endfor %}
+  </ul>
+</div>
+
+
+{% endblock %}

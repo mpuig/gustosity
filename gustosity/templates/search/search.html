@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n highlight %}
+
+{% block content %}
+<div class="row-fluid">
+  <div class="register-box clearfix">
+    <form action="." method="get" class="form-inline">
+        {{ form.q }}
+          <input class="btn btn-primary" type="submit" value="{% trans "Search" %}" />
+    </form>
+
+        {% if query %}
+            <h3>Results</h3>
+            <ul class="unstyled">
+            {% for result in page.object_list %}
+                <li>
+                    <h4><a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a></h4>
+                    <p class="clearfix">
+                        <img class="alignleft" src="{{ result.object.mini_thumbnail.url }}">
+                        {{ result.object.summary|truncatewords:30 }}</p>
+                </li>
+            {% empty %}
+                <li><p>{% trans "No results found." %}</p></li>
+            {% endfor %}
+            </ul>
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+
+{% endblock %}

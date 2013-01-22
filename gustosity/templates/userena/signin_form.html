@@ -1,0 +1,57 @@
+{% extends 'userena/base_userena.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Signin" %}{% endblock %}
+
+{% block content %}
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="login-box clearfix">
+      <header><h2 class="short_headline"><span>{% trans "Login to your account..." %}</span></h2></header>
+      <div class="login-wrapper clearfix">
+        <div class="float-right">
+          <form action="" method="post">
+            {% csrf_token %}
+            <fieldset>
+              {{ form.non_field_errors }}
+              {% for field in form %}
+              {% comment %} Displaying checkboxes differently {% endcomment %}
+              {% if field.name == 'remember_me' %}
+              <label class="checkbox inline" for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+              {% else %}
+              <div class="control-group{% if field.errors %} error{% endif %}">
+                <label for="{{ field.auto_id }}" class="required control-label">{{ field.label }} <span class="required">*</span></label>
+                <div class="controls">
+                  {{ field }}
+                  {% if field.help_text %}<span class="help-inline">{{ field.help_text }}</span>{% endif %}
+                  {% if field.errors %}<label class="error">{{ field.errors|join:", " }}</label>{% endif %}
+                </div>
+              </div>
+              {% endif %}
+              {% endfor %}
+              <div class="form-controls">
+                <input class="btn btn-primary btn-large" type="submit" value="{% trans "Login" %}" />
+              </div>
+            </fieldset>
+            {% if next %}<input type="hidden" name="next" value="{{ next }}" />{% endif %}
+          </form>
+        </div>
+        <!-- close .float-right-->
+        <div class="float-left">
+          <ul>
+            <li><a href="#"><img src="/static/images/sign-in-twitter.png" alt="{% trans "Sign in with twitter" %}"></a></li>
+            <li><a href="#"><img src="/static/images/sign-in-facebook.png" alt="{% trans "Sign in with twitter" %}"></a></li>
+          </ul>
+          <p><a class="center" href="{% url 'userena_signup' %}">{% trans "Not a member? Join today!" %}</a></p>
+          <p><a href="{% url 'auth_password_reset' %}" title="{% trans 'Forgot your password?' %}">{% trans "Forgot your password?" %}</a></p>
+
+        </div>
+        <!-- close .float-right-->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

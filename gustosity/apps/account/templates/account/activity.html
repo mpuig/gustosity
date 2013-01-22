@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n activity_tags %}
+
+{% block title %}{{ chef }} activity{% endblock %}
+
+
+{% block content %}
+<div class="row-fluid">
+  <div class="span9 blog-detail">
+    {% include "account/_user_tabs.html" %}
+    <div class="entry-content">
+        <ul class="clearfix">
+          {% for action in chef.actor_actions.all %}<li>{% display_action action %}</li>{% endfor %}
+        </ul>
+    </div>
+    {% include "account/_user_info.html" %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% load url from future %}
+{% load i18n %}
+
+
+<div class="row-fluid sidebar-left">
+
+  <div class="span9 primary-column">
+    {% if sortby %}
+      <div class="filter-box">
+        <ul class="sort">
+            <li class="last">Order by:</li>
+            <li><a class="{% if sortby == 'default' %} active{% endif %}" href="?"><i class="icon-time"></i> {% trans "newest" %}</a></li>
+            <li><a class="{% if sortby == 'likes' %} active{% endif %}" href="?sortby=likes"><i class="icon-heart"></i> {% trans "likes" %}</a></li>
+            <li><a class="{% if sortby == 'forks' %} active{% endif %}" href="?sortby=forks"><i class="icon-retweet"></i> {% trans "forks" %}</a></li>
+          </ul>
+      </div>
+    {% endif %}
+    <ul class="gallery four_col clearfix blog-summary-grid isotope">
+      {% if recipes %}{% for recipe in recipes %}{% include "_recipe_box.html" %}{% endfor %}{% endif %}
+    </ul>
+  </div>
+
+  <div class="span3 sidebar secondary-column" id="secondary-nav">
+{% comment %}
+{% if sortby %}
+  <aside class="widget">
+  <h5 class="short_headline"><span>{% trans "Order by" %}</span></h5>
+  <div class="btn-group">
+        <a class="btn btn-primary{% if sortby == 'default' %} active{% endif %}" href="?"><i class="icon-time"></i> {% trans "newest" %}</a>
+        <a class="btn btn-primary{% if sortby == 'likes' %} active{% endif %}" href="?sortby=likes"><i class="icon-heart"></i> {% trans "likes" %}</a>
+        <a class="btn btn-primary{% if sortby == 'forks' %} active{% endif %}" href="?sortby=forks"><i class="icon-retweet"></i> {% trans "forks" %}</a>
+  </div>
+  </aside>
+{% endif %}
+{% endcomment %}
+      <aside class="widget">
+        <h5 class="short_headline"><span>{% trans "Browse by category" %}</span></h5>
+        <ul class="navigation">
+          <li><a href="{% url 'recipe_list' %}">{% trans "Everything" %}</a></li>
+          {% for category in categories %}
+            <li{% if category.slug == filterby %} class="active" {% endif %}><a href="{% url 'recipes_byfilter' category.slug %}">{{ category.name }}</a></li>
+          {% endfor %}
+        </ul>
+
+        <h5 class="short_headline"><span>{% trans "Browse by difficulty" %}</span></h5>
+        <ul class="navigation">
+          {% for difficulty in difficulties %}
+            <li{% if difficulty.0 == filterby %} class="active" {% endif %}>
+              <a href="{% url 'recipes_byfilter' difficulty.0 %}">
+                {{ difficulty.1 }}
+                <small>
+                {% if difficulty.0 == 'easy' %}<i class="icon-fire"></i>{% endif %}
+                {% if difficulty.0 == 'medium' %}<i class="icon-fire"></i><i class="icon-fire"></i>{% endif %}
+                {% if difficulty.0 == 'difficult' %}<i class="icon-fire"></i><i class="icon-fire"></i><i class="icon-fire"></i>{% endif %}
+                </small>
+              </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </aside>
+    </div>
+  </div><!--/row-->
+      {% if is_paginated %}
+          <div class="pager">
+              <ul>
+                  {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}">← {% trans "previous" %}</a></li>
+                  {% else %}
+                    <li class="disabled"><a href="#">← {% trans "previous" %}</a></li>
+                  {% endif %}
+                  {% if page_obj.has_next %}
+                      <li><a href="?page={{ page_obj.next_page_number }}">{% trans "next" %} →</a></li>
+                  {% else %}
+                  <li class="disabled"><a href="#">{% trans "next" %} →</a></li>
+                  {% endif %}
+              </ul>
+          </div>
+      {% endif %}
+
+</div>

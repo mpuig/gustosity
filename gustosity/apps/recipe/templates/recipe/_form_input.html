@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="control-group{% if field.errors %} error{% endif %}">
+    <label for="{{ field.auto_id }}" class="required control-label">{{ field.label }}
+        {% if field.field.required %}<span class="required">*</span>{% endif %}
+    </label>
+    <div class="controls">
+        {% if field.name == 'original_image' %}
+            <span class="btn btn-primary fileinput-button">
+                <span>
+                    <i class="icon-plus icon-white"></i> {% trans "Select Image" %}
+                </span>
+                {{ field }}
+            </span>
+        {% else %}
+        {{ field }}
+        {% endif %}
+        {% if field.help_text %}<span class="info">{{ field.help_text }}</span>{% endif %}
+        {% if field.errors %}<label for="{{ field.auto_id }}" class="error">{{ field.errors|join:", " }}</span>{% endif %}
+    </div>
+
+
+</div>

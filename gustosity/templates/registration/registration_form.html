@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+
+<div class="row-fluid">
+  <div class="login-box clearfix">
+    <h2 class="short_headline"><span>{% trans "Join us" %}</span></h2>
+    <div class="login-wrapper clearfix">
+    <div class="float-right">
+    <form action="" method="post">
+      {% csrf_token %}
+      <fieldset>
+        {{ form.non_field_errors }}
+        {% for field in form %}
+        {% if field.name == 'tos' %}
+          <p class="checkbox"><label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label></p>
+        {% else %}
+          <div class="control-group{% if field.errors %} error{% endif %}">
+            <label for="{{ field.auto_id }}" class="required control-label">{{ field.label }} <span class="required">*</span></label>
+            <div class="controls">
+              {{ field }}
+              {% if field.help_text %}<span class="help-inline">{{ field.help_text }}</span>{% endif %}
+              {% if field.errors %}<label class="error">{{ field.errors|join:", " }}</label>{% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% endfor %}
+        <div class="form-actions">
+          <input class="btn btn-primary btn-large" type="submit" value="{% trans "Register" %}" />
+        </div>
+      </fieldset>
+    </form>
+      </div>
+      <!-- close .float-right-->
+      <div class="float-left">
+        <ul>
+          <li><a rel="nofollow" href="{% url 'socialauth_associate_begin' 'facebook' %}"><img src="/static/images/sign-in-facebook.png" alt="{% trans "Sign in with Facebook" %}"></a></li>
+        </ul>
+        <p>{% trans "Already have an account?" %} <a href="{% url 'auth_login' %}">{% trans "Login" %}</a></p>
+        <p><a rel="nofollow" href="{% url 'auth_password_reset' %}" title="{% trans 'Forgot your password?' %}">{% trans "Forgot your password?" %}
+
+      </div>
+      <!-- close .float-right-->
+    </div>
+  </div>
+</div>
+
+{% endblock %}

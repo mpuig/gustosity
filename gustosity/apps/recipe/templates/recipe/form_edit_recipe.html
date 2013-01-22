@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+
+{% block content %}
+
+<div class="hero-unit">
+    {% if not recipe.pk %}
+      <h1>{% trans "Create a new recipe" %}</h1>{% else %}
+      <h1><a href="{{ recipe.get_absolute_url }}">{{ recipe }}</a></h1>{% endif %}
+</div>
+
+
+{% if form.errors %}
+<div id="form-error">
+  <p>{% trans "The operation could not be performed because one or more error(s) occurred." %}<br />{% trans "Please resubmit the form after making the following changes:" %}</p>
+  <ul>
+  {% for field in form %}
+  <li>{{ field.errors|striptags }}</li>
+  {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+<div class="row-fluid contact-page">
+  <div class="span5">
+    {% include "recipe/_form_input.html" with field=form.name %}
+    {% include "recipe/_form_input.html" with field=form.summary %}
+    {% include "recipe/_form_input.html" with field=form.source %}
+    {% include "recipe/_form_input.html" with field=form.language %}
+    {% include "recipe/_form_input.html" with field=form.original_image %}
+  </div>
+
+  <div class="span3">
+
+    {% include "recipe/_form_input.html" with field=form.category %}
+    {% include "recipe/_form_input.html" with field=form.difficulty %}
+
+    {% include "recipe/_form_input.html" with field=form.servings %}
+    {% include "recipe/_form_input.html" with field=form.num_portions %}
+    {% include "recipe/_form_input.html" with field=form.portion %}
+
+
+
+  </div>
+
+  <div class="span3">
+    {% include "recipe/_form_input.html" with field=form.prep_minutes %}
+    {% include "recipe/_form_input.html" with field=form.inactive_prep_minutes %}
+    {% include "recipe/_form_input.html" with field=form.cook_minutes %}
+    {% include "recipe/_form_input.html" with field=form.is_private %}
+  </div>
+</div>
+
+<div class="row-fluid contact-page">
+  <div class="span12">
+    <div class="control-group">
+      <input class="btn btn-primary btn-large" type="submit" value="save">
+    </div>
+  </div>
+</div>
+</form>
+{% endblock %}
+
+{% block extracss %}
+  <link href="/static/css/jquery.backbone.widgets.css" rel="stylesheet">
+  <link href="/static/file-uploader/fineuploader.css" rel="stylesheet">
+{% endblock extracss %}
+
+
+{% block extrajs %}
+
+{% include "recipe/_backbone.html" %}
+
+<script type="text/javascript">
+  var urlRecipe = "/api/recipes/{{ recipe.pk }}";
+  var recipeId = "{{ recipe.pk }}";
+  $(function () {
+    new IngredientsEditView();
+    $('#id_name').focus();
+  });
+</script>
+{% comment %}
+$('textarea.tagged_text').textntags({
+
+    triggers: {
+        '@': {
+            minChars: 1,
+            showImageOrIcon: false,
+            uniqueTags: false,
+            keys_map: {
+                id: 'id',
+                title: 'name'
+            }
+        }
+    },
+
+    onDataRequest: function (mode, query, triggerChar, callback) {
+        console.log(query);
+        $.getJSON(
+        url = '/api/ingredients.json', {
+            'name': query.toLowerCase()
+        },
+
+        function (responseData) {
+            query = query.toLowerCase();
+            var data = JSON.parse(responseData);
+            var found = _.filter(data, function (item) {
+                return item.name.toLowerCase().indexOf(query) > -1;
+            });
+            found.push({
+                id: 0,
+                type: 'ingredient',
+                name: query
+            });
+            callback.call(this, found);
+        });
+    }
+})
+    .bind('tagsAdded.textntags', function (e, addedTagsList) {
+    console.log('tagsAdded:' + JSON.stringify(addedTagsList));
+})
+    .bind('tagsRemoved.textntags', function (e, removedTagsList) {
+    console.log('tagsRemoved:' + JSON.stringify(removedTagsList));
+});
+{% endcomment %}
+
+{% endblock extrajs %}

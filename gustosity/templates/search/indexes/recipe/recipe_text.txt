@@ -1,0 +1,5 @@
+<h2>{{ object.name }}</h2>
+<p>{{ object.summary }}</p>
+{{ object.user.get_full_name }}
+<ul>{% for s in object.steps.all %}<li>{{ s.description }}</li>{% endfor %}</ul>
+<ul>{% for i in object.ingredients.all %}<li>{{ i }}</li>{% endfor %}</ul>

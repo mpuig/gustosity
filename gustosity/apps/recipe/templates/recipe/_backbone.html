@@ -1,0 +1,80 @@
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/backbone.js"></script>
+<script type="text/javascript" src="/static/js/underscore.js"></script>
+<script type="text/javascript" src="/static/js/json2.js"></script>
+<script type="text/javascript" src="/static/js/jquery.backbone.widgets.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="/static/file-uploader/js/header.js"></script>
+<script type="text/javascript" src="/static/file-uploader/js/util.js"></script>
+<script type="text/javascript" src="/static/file-uploader/js/button.js"></script>
+<script type="text/javascript" src="/static/file-uploader/js/handler.base.js"></script>
+<script type="text/javascript" src="/static/file-uploader/js/handler.form.js"></script>
+<script type="text/javascript" src="/static/file-uploader/js/handler.xhr.js"></script>
+<script type="text/javascript" src="/static/file-uploader/js/uploader.basic.js"></script>
+<script type="text/javascript" src="/static/file-uploader/js/uploader.js"></script>
+<script type="text/javascript" src="/static/js/gustosity.js?2"></script>
+
+<!-- Templates -->
+<script type="text/template" id="ingredient-template">
+  <div class="view">
+    <label><%- full_name %></label>
+    <a class="destroy"></a>
+  </div>
+  <div class="edit clearfix">
+      <input class="name input-medium" type="text" value="<%- name %>" />
+      <label class="checkbox"><input type="checkbox" class="optional" <% if (optional) { %>checked="checked"<% } %>>optional ingredient</label>
+      <button class="btn btn-small cancel-btn"> cancel</button>
+      <button class="btn btn-small btn-success save-btn pull-right"><i class="icon-ok"></i> save</button>
+  </div>
+</script>
+
+<script type="text/template" id="step-template">
+      <div style="border:1px solid #f00;float:right;width:200px; height:200px;" id="upload-btn-<%- id %>">
+        <img id="step-image-<%- id %>" src="/static/images/addphoto.png">
+        <div id="uploader-<%- id %>"></div>
+      </div>
+
+  <div class="view">
+    <p><%- description %></p>
+    <ul class="tools">
+      <li><div class="edit-btn"><i class="icon-edit"></i> edit</div></li>
+      {% comment %}<li><div id="_upload-btn-<%- id %>"><i class="icon-picture"></i> add image</div></li>{% endcomment %}
+      <li><div class="destroy"><i class="icon-remove-circle"></i> delete step</div></li>
+    </ul>
+  </div>
+  <div class="edit clearfix">
+    <textarea class="desc"><%- description %></textarea><br>
+    <a class="btn cancel-btn"><i class="icon-remove"></i> cancel</a>
+    <a class="btn save-btn btn-success pull-right"><i class="icon-ok"></i> save</a>
+  </div>
+  <hr>
+</script>
+
+<script type="text/template" id="delete-ingredient-template">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Delete this ingredient?</h3>
+  </div>
+  <div class="modal-body">
+    <p><%= ingredient %></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+    <button class="btn btn-danger delete">Yes, delete</button>
+  </div>
+</script>
+
+<script type="text/template" id="delete-step-template">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Delete this step?</h3>
+  </div>
+  <div class="modal-body">
+    <img class="alignright" src="<%- imgsrc %>" >
+    <p><%= description %></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+    <button class="btn btn-danger delete">Yes, delete</button>
+  </div>
+</script>

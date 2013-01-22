@@ -1,0 +1,92 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" dir="ltr"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en" dir="ltr"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" dir="ltr"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+<head>
+
+<title>{{ TITLE }}</title>
+
+<!-- Meta Data ================ -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- CSS ================ -->
+<link rel="stylesheet" href="/static/css/bootstrap.min.css?v=1" type="text/css"/>
+<link rel="stylesheet" href="/static/css/style.css?v=1" type="text/css"/>
+<link rel="stylesheet" href="/static/css/header-1.css" type="text/css"/>
+
+<link href="/static/css/jquery-textntags.css" rel="stylesheet">
+
+
+{% comment %}<link href="/static/css/_gustosity.css" rel="stylesheet">{% endcomment %}
+
+    <!-- Le fav and touch icons -->
+    <!---
+    <link rel="shortcut icon" href="/static/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/ico/apple-touch-icon-57-precomposed.png"> -->
+    {% block extracss %}{% endblock extracss %}
+    <link href="/static/css/gustosity2.css" rel="stylesheet">
+<!-- JS JQuery in the head you can use ajax if you want ================ -->
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<!-- Add to Head after Style sheet http://modernizr.com/docs/#installing  ================ -->
+<script src="/static/js/modernizr.custom.87724.js"></script><!-- js multiple backgrounds svg background size -->
+
+</head>
+
+<body>
+  <!-- begin accesibility skip to nav skip content -->
+  <ul class="visuallyhidden" id="top">
+    <li><a href="#nav" title="Skip to navigation" accesskey="n">Skip to navigation</a></li>
+    <li><a href="#page" title="Skip to content" accesskey="c">Skip to content</a></li>
+  </ul>
+  <!-- end /.visuallyhidden accesibility-->
+
+  <!-- mobile navigation trigger-->
+  <h5 class="mobile_nav"><a href="javascript:void(0)">&nbsp;<span></span></a></h5>
+  <!--end mobile navigation trigger-->
+
+  {% include "base_navbar.html" %}
+
+<!-- begin #page - the container for everything but header -->
+<div id="page">
+
+  <!--notice how sliders are outside the this main content div-->
+  <div class="container clearfix" id="main-content">
+    {% if messages %}
+      <div class="row-fluid">
+        <div class="span12">
+           {% for message in messages %}
+              <div class="alert fade in{% if message.tags %} alert-{{ message.tags }}{% endif %}">
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+                  <strong>{{ message|safe }}</strong>
+              </div>
+          {% endfor %}
+        </div>
+      </div><!--/row-fluid-->
+    {% endif %}
+    {% block content %}{% endblock %}
+  </div>
+
+  {% include "base_footer.html" %}
+
+  <span class="backToTop"><a href="#top">back to top</a></span>
+</div>
+<!-- close #page-->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/underscore-min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-textntags.js"></script>
+<script type="text/javascript" src="/static/js/scripts.js"></script>
+{% block extrajs %}{% endblock extrajs %}
+</body>
+</html>

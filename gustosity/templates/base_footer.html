@@ -1,0 +1,70 @@
+{% load i18n %}
+  <!--begin footer -->
+  <footer id="footer" class="clearfix">
+    <div class="container"><!--footer container-->
+
+
+      <div class="row-fluid">
+        <div class="span4">
+          <section>
+            <h4>Contact Us</h4>
+            <p> <strong>web:</strong> <a href="/contact/">contact form</a> </p>
+            <p> <strong>email:</strong> <a href="mailto:marc@gustosity.com">marc@gustosity.com</a> </p>
+          </section>
+          <!--close section-->
+
+        </div>
+        <!-- close .span4 -->
+        {% comment %}
+        <!--section containing newsletter signup and recent images-->
+        <div class="span4">
+          <section>
+            <h4>Stay Updated</h4>
+            <p>Sign up for our tasty newsletter. We won't share your email address.</p>
+            <form action="yourscript.php" method="post">
+              <div class="input-append">
+                <input type="email" placeholder="Email Address" class="span6" name="email" />
+                <button class="btn btn-primary">Sign Up</button>
+              </div>
+              <!--close input-append-->
+            </form>
+          </section>
+          <!--close section-->
+
+        </div>
+        <!-- close .span4 -->
+        {% endcomment %}
+
+        <!--section containing blog posts-->
+        <div class="span4">
+          <section>
+            <h4>Follow Us</h4>
+            <ul class="social">
+              {% comment %}<li><a class="socicon rss" href="#" title="RSS"></a></li>{% endcomment %}
+              {% comment %}<li><a class="socicon facebook" href="#" title="Facebook"></a></li>{% endcomment %}
+              <li><a class="socicon twitterbird" href="http://twitter.com/gustosity" title="Twitter"></a></li>
+            </ul>
+          </section>
+          <!--close section-->
+        </div>
+        <!-- close .span4 -->
+      </div>
+      <!-- close .row-fluid-->
+    </div>
+    <!-- close footer .container-->
+
+    <!--change this to your stuff-->
+    <section class="footerCredits">
+      <div class="container">
+        <ul class="clearfix">
+          <li>© 2013 Gustosity. All rights reserved.</li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/about/terms/">Terms of service</a></li>
+        </ul>
+      </div>
+      <!--footerCredits container-->
+    </section>
+    <!--close section-->
+  </footer>
+  <!--/.footer-->
+

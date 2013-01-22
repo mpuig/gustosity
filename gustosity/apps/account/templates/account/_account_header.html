@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load url from future %}
+
+<h3 class="short_headline"><span>{{ user }}</span></h3>
+<ul class="navigation">
+  <li><a href="{% url 'edit_profile' %}">{% trans "Edit profile" %}</a></li>
+  <li><a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a></li>
+</ul>
+<br>
+<p><a class="btn" href="{% url 'show_user' user.username %}"><i class="icon-user"></i> {% trans 'View profile' %}</a></p>
+

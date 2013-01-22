@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}Users following {{ chef }}{% endblock %}
+
+
+{% block content %}
+
+<div class="row-fluid">
+
+  {% include "account/_user_info.html" %}
+
+  <div class="span9">
+
+  {% include "account/_user_tabs.html" %}
+
+    <div class="entry-comments">
+      <ul>{% for chef in followers %}{% include "account/_user_box.html" %}{% endfor %}</ul>
+    </div>
+
+
+  </div>
+</div>
+
+{% endblock %}

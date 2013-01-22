@@ -1,0 +1,59 @@
+{% extends 'userena/base_userena.html' %}
+{% load i18n humanize %}
+{% load url from future %}
+
+{% block content_title %}<h2>{% trans 'Profiles' %}</h2>{% endblock %}
+
+{% block content %}
+
+<table id="profile_list_header">
+  <tr>
+    <th>Chef</th>
+    <th>Rating average</th>
+    <th>Top rated recipes</th>
+    <th>Published recipes</th>
+    <th>newest</th>
+</tr>
+
+  {% for p in profile_list %}
+    <tr>
+      <td>
+        <a href="{% url 'show_user' p.user.username %}"><img src="{{ p.get_avatar_url }}" /></a>
+        <a href="{% url 'show_user' p.user.username %}">{{ p.user.username }}</a>
+      </td>
+      <td>{{ p.get_rating_average }}</td>
+      <td>
+        {% for recipe in p.get_top_rated_recipes %}
+          <a href="{{ recipe.get_absolute_url }}">{{ recipe }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{ p.get_published_recipes }}</td>
+      <td>{% if p.get_newest_recipe %}
+          {{ p.get_newest_recipe }}<br />{{ p.get_newest_recipe.created_at|naturaltime }}
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+{% if is_paginated %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="{% url 'userena_profile_list_paginated' page_obj.previous_page_number %}">{% trans 'previous' %}</a>
+    {% endif %}
+
+    <span class="current">
+      {% blocktrans with page_obj.number as page and page_obj.paginator.num_pages as num_pages %}
+      Page {{ page }} of {{ num_pages }}
+      {% endblocktrans %}
+    </span>
+
+    {% if page_obj.has_next %}
+    <a href="{% url 'userena_profile_list_paginated'  page_obj.next_page_number %}">{% trans 'next' %}</a>
+    {% endif %}
+  </span>
+</div>
+{% endif %}
+{% endblock %}

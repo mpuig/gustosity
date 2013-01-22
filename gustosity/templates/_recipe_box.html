@@ -1,0 +1,24 @@
+<li class="recipe isotope-item">
+    {% if recipe.is_private %}<span style="position:absolute; color:#FF0000;background-color:#FFFFFF"><i class="icon-lock"></i></span>{% endif %}
+      {% if recipe.thumbnail %}<a href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.thumbnail.url }}" alt="{{ recipe }}"/></a>{% endif %}
+      <div class="entry-summary">
+        <h4><a href="{{ recipe.get_absolute_url }}">{{ recipe.name|truncatechars:60 }}</a></h4>
+        {% comment %}<p>{{ recipe.summary|truncatewords:10 }}</p>{% endcomment %}
+        <div class="entry-meta">
+          by <a href="{{ recipe.user.get_absolute_url }}">{{ recipe.user.username }}</a>
+          <br>
+          {% if recipe.category %}in {{ recipe.category }}&nbsp;{% endif %}
+          <span class="pull-right">
+          {% if recipe.difficulty == 'easy' %}<i class="icon-fire"></i>{% endif %}
+          {% if recipe.difficulty == 'medium' %}<i class="icon-fire"></i><i class="icon-fire"></i>{% endif %}
+          {% if recipe.difficulty == 'difficult' %}<i class="icon-fire"></i><i class="icon-fire"></i><i class="icon-fire"></i>{% endif %}
+          </span>
+          <br>
+        <i class="icon-retweet"></i>{{ recipe.total_forks }}&nbsp;&nbsp;
+        <i class="icon-heart"></i>{{ recipe.total_likes }}&nbsp;&nbsp;
+        <i class="icon-eye-open"></i>{{ recipe.total_views }}
+        {% comment %}rank: {{ recipe.rank }}{% endcomment %}
+
+        </div>
+      </div>
+</li>

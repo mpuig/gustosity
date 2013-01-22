@@ -1,0 +1,7 @@
+<div class="span9">
+    <ul class="thumbnails">
+      {% for recipe in recipes %}{% include "_recipe_box.html" %}{% endfor %}
+        {% if forloop.counter|divisibleby:"4" and not forloop.last %}</ul><ul class="thumbnails">{% endif %}
+      {% endfor %}
+    </ul>
+</div><!--/span-->

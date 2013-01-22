@@ -1,0 +1,11 @@
+blau fons menú: #4c5966  -> verd clar: #abb928
+blau clar menú seleccionat: #53a3b7 -> verd fosc: #676733
+
+text blau clar: #758694 -> verd #7d7f42
+
+text blau més clar #576674 -> verd #8d904c
+
+
+color gris buttons: #a3b0bb -> taronja #e57217
+
+color verd fosc dels botons

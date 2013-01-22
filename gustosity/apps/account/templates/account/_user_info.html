@@ -1,0 +1,34 @@
+{% load i18n account_tags %}
+
+<div class="span3">
+    <img class="avatar" src="{{ chef.profile.get_avatar_url }}" />
+
+    {% if request.user.is_authenticated %}<div style="margin:10px 0;width:180px;text-align:center;">{% follow_button request.user chef %}</div>{% endif %}
+    {% if chef.profile.country or chef.profile.website %}
+    <ul class="navigation">
+        {% if chef.profile.country %}<li>{{ chef.profile.country.name }}</li>{% endif %}
+        {% if chef.profile.website %}<li><a class="url" href="{{ chef.profile.website }}" target="_blank">{{ chef.profile.website }}</a></li>{% endif %}
+    </ul>
+    {% endif %}
+
+    {% if chef.profile.about_me %}
+        <h4 class="short_headline"><span>{% trans "About me" %}</span></h4>
+        {{ chef.profile.about_me|linebreaks }}
+    {% endif %}
+    <h4 class="short_headline"><span>{% trans "Latest activity" %}</span></h4>
+    <ul class="footerPosts">
+        {% for action in chef.actor_actions.all|slice:":10" %}
+        <li>
+            {% if action.actor.get_absolute_url %}<a href="{{ action.actor.get_absolute_url }}">{{ action.actor }}</a>
+            {% else %}<a href="{{ action.actor_url }}">{{ action.actor }}</a>{% endif %}
+
+            {{ action.verb }}
+            {% if action.target %}
+                {% if action.target.get_absolute_url %}<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>
+                {% else %}<a href="{{ action.target_url }}">{{ action.target }}</a>{% endif %}
+            {% endif %}
+            <span class="meta">{{ action.timestamp|timesince }} {% trans "ago" %}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

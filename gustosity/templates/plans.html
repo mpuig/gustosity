@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block extracss %}
+<!-- pricing table -->
+<link rel="stylesheet" href="/static/css/pricingcolumns.css" type="text/css" media="screen" />
+
+{% endblock extracss %}
+
+
+{% block content %}
+    <h3 class="short_headline"><span>Plans & Pricing</span></h3>
+    <p>Join today and collaborate with the smartest chefs in the world.</p>
+
+    <!-- begin pricing tables -->
+    <div class="row-fluid pricingTable">
+        <div class="option1 span4">
+            <div class="wrapper">
+                <ul class="optionheader">
+                    <li class="title"> Bronze </li>
+                    <li class="price"> Free <span></span> </li>
+                </ul>
+                <ul class="features">
+                    <li> <strong>Unlimited</strong> public recipes </li>
+                    <li> <strong>Unlimited</strong> public favorites lists </li>
+                    <li> <strong>1</strong> photo per recipe </li>
+                    <li class="select" title="Sign Up"> <a href="/account/register/?plan=free" class="btn btn-large">Choose <i class="icon-check icon-white"></i></a> </li>
+                </ul>
+            </div>
+        </div>
+        <!--close .option1 -->
+        <div class="option2 span4 popular">
+            <div class="wrapper">
+                <ul class="optionheader">
+                    <li class="title"> Silver </li>
+                    <li class="price"> <i>$</i>7/mo <span>or $49/yr</span> </li>
+                </ul>
+                <ul class="features">
+                    <li> <strong>Unlimited</strong> public recipes </li>
+                    <li> <strong>Unlimited</strong> private recipes </li>
+                    <li> <strong>Unlimited</strong> public favorites lists </li>
+                    <li> <strong>Unlimited</strong> private favorites lists </li>
+                    <li> <strong>1</strong> photo per recipe </li>
+                    <li> <strong>1</strong> photo per recipe step </li>
+                    <li> <strong>1</strong> video per recipe </li>
+                    <li class="select" title="Sign Up"> <a href="/account/register/?plan=silver" class="btn btn-large">Choose <i class="icon-check icon-white"></i></a> </li>
+                </ul>
+            </div>
+        </div>
+        <!--close .option2 -->
+        <div class="option3 span4 last">
+            <div class="wrapper">
+                <ul class="optionheader">
+                    <li class="title"> Gold </li>
+                    <li class="price"> <span>(not yet available)</span> <i>$</i>12/mo <span>or $94/yr</span> </li>
+                </ul>
+                <ul class="features">
+                    <li> <strong>Unlimited</strong> public recipes </li>
+                    <li> <strong>Unlimited</strong> private recipes </li>
+                    <li> <strong>Unlimited</strong> public favorites lists </li>
+                    <li> <strong>Unlimited</strong> private favorites lists </li>
+                    <li> <strong>1</strong> photo per recipe </li>
+                    <li> <strong>1</strong> photo per recipe step </li>
+                    <li> <strong>1</strong> video per recipe </li>
+                    <li> Custom templates </li>
+                    <li> Analytics </li>
+                    <li class="select" title="Sign Up"> <a href="#" class="btn btn-large">Choose <i class="icon-check icon-white"></i></a> </li>
+                </ul>
+            </div>
+        </div>
+        <!--close .option3 -->
+    </div>
+    <!--close row-fluid pricingTable div -->
+{% endblock content %}
