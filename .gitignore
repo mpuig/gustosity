@@ -18,6 +18,5 @@ build
 celerybeat-schedule
 
 gustosity/media/*
-gustosity/static/*
 staticfiles/*
 apache2/*

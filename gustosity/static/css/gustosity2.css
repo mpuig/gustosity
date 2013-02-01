@@ -1,0 +1,182 @@
+.btn-primary,
+.btn-primary:active,.btn-primary.active,
+.btn-primary:hover,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled] {
+    background:#e57217;
+    border-color:#e57217;
+}
+
+
+#logo {
+    margin-top: 5px;
+}
+#logo,
+#logo img {
+    width:200px;
+    height: 80px;
+}
+#main_menu li a {
+    line-height: 70px;
+}
+.js .search input {
+    display: inherit;
+}
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+span.info {
+    font-size: 0.8em;
+    font-style: italic;
+}
+#ingredients-list {
+    margin: 10px 0;
+    padding: 0;
+    list-style: none;
+}
+
+#ingredients-list li {
+    position: relative;
+}
+
+#ingredients-list li:last-child {
+    border-bottom: none;
+}
+#ingredients-list .destroy {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url(/static/img/destroy.png) no-repeat;
+}
+
+#ingredients-list li:hover .destroy {
+    display: block;
+}
+
+#ingredients-list .destroy:hover {
+    background-position: 0 -20px;
+}
+#ingredients-list li.editing {
+    border-bottom: none;
+    margin-top: -1px;
+    padding: 0;
+}
+
+#ingredients-list li.editing:last-child {
+    margin-bottom: -1px;
+}
+
+li.editing .edit,
+.addingredient {
+    display: block;
+    margin: 0;
+    padding: 5px;
+    background-color: #dedede;
+}
+
+#ingredients-list li.editing .view {
+    display: none;
+}
+#ingredients-list li .view label {
+    word-break: break-word;
+}
+
+#ingredients-list li .edit {
+    display: none;
+}
+
+#ingredients-list li .name,
+#new-ingredient {
+    width:93%;
+    margin-bottom: 5px;
+}
+
+#steps-list {
+    margin: 10px 0;
+    padding: 0;
+    list-style: none;
+}
+
+#steps-list li {
+    position: relative;
+}
+#steps-list .tools {
+    margin: 0;
+    padding-bottom: 4px;
+    float: right;
+}
+#steps-list .tools li {
+    float: left;
+    padding-right: 19px;
+    list-style: none;
+    color: #ddd;
+    cursor: pointer;
+}
+#steps-list li:hover .tools li {
+    color: #abb928;
+}
+#steps-list li.editing {
+    border-bottom: none;
+    margin-top: -1px;
+    padding: 0;
+}
+
+#steps-list li.editing:last-child {
+    margin-bottom: -1px;
+}
+
+#steps-list li .edit {
+    display: none;
+}
+#steps-list li.editing .edit {
+    display: block;
+    width: 65%;
+    margin: 0;
+}
+
+#steps-list li.editing .view {
+    display: none;
+}
+#steps-list li .view .content {
+    word-break: break-word;
+}
+.cancel-btn {
+    cursor: pointer;
+}
+textarea.desc {
+    height: 190px;
+    width: 95%;
+    margin-bottom: 5px;
+}
+#steps-list input[type="file"] {
+    height: 200px;
+}
+.content-tabs .tab {
+    margin-bottom: 0;
+}
+.content-tabs .tab a {
+    padding: 5px 12px;
+}
+.minirecipe {
+    margin-left: 5px;
+}
