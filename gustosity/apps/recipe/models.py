@@ -130,8 +130,8 @@ class Recipe(SluggableModel):
         blank=True, null=True, default=0, db_index=True, editable=False)
 
     # Managers
-    all_objects = models.Manager()
     objects = PublicRecipesManager()
+    all_objects = models.Manager()
 
     class Meta:
         db_table = 'gustosity_recipes'

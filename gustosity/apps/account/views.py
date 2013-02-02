@@ -58,8 +58,13 @@ class UserView(ListView):
         user = get_object_or_404(User,
             username__iexact=self.kwargs['username'])
         params = self.request.GET.dict()
+        queryset = Recipe.all_objects.filter(user=user)
+        if user != self.request.user:
+            queryset = queryset.filter(is_private=False)
+
         self.filterby, self.sortby, queryset = _filter_and_sort_recipes(
-            user.recipes.all(), self.kwargs, params)
+            queryset, self.kwargs, params)
+
         return queryset
 
     def get_context_data(self, **kwargs):
