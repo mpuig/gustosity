@@ -1,0 +1,15 @@
+<script type="text/javascript">
+$(window).load(function(){
+
+  var columns = 4,
+  setColumns = function() { columns = $(window).width() > 767 ? 4 : 2 };
+  setColumns();
+  $(window).resize(setColumns);
+
+  $('.isotope').masonry({
+    itemSelector : '.isotope-item',
+    isResizable: true,
+    columnWidth: function( containerWidth ) {return containerWidth / columns;}
+  });
+});
+</script>

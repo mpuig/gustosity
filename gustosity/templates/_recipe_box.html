@@ -1,6 +1,6 @@
 <li class="recipe isotope-item">
     {% if recipe.is_private %}<span style="position:absolute; color:#FF0000;background-color:#FFFFFF"><i class="icon-lock"></i></span>{% endif %}
-      {% if recipe.thumbnail %}<a href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.thumbnail.url }}" alt="{{ recipe }}"/></a>{% endif %}
+      {% if recipe.thumbnail %}<a class="clearfix" href="{{ recipe.get_absolute_url }}"><img src="{{ recipe.thumbnail.url }}" alt="{{ recipe }}"/></a>{% endif %}
       <div class="entry-summary">
         <h4><a href="{{ recipe.get_absolute_url }}">{{ recipe.name|truncatechars:60 }}</a></h4>
         {% comment %}<p>{{ recipe.summary|truncatewords:10 }}</p>{% endcomment %}

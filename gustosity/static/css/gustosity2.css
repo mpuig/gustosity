@@ -180,3 +180,6 @@ textarea.desc {
 .minirecipe {
     margin-left: 5px;
 }
+.four_col li h4 {
+    font-size: 100%
+}
