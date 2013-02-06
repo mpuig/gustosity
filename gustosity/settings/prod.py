@@ -42,7 +42,7 @@ TEMPLATE_DEBUG = DEBUG
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gustosity',
+        'NAME': 'gustosity2',
         'USER': 'gustosity',
         'PASSWORD': 'RUC3lQt1',
         'HOST': '',
