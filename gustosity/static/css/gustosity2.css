@@ -50,11 +50,9 @@ span.info {
     padding: 0;
     list-style: none;
 }
-
 #ingredients-list li {
     position: relative;
 }
-
 #ingredients-list li:last-child {
     border-bottom: none;
 }
@@ -68,11 +66,9 @@ span.info {
     height: 20px;
     background: url(/static/img/destroy.png) no-repeat;
 }
-
 #ingredients-list li:hover .destroy {
     display: block;
 }
-
 #ingredients-list .destroy:hover {
     background-position: 0 -20px;
 }
@@ -81,12 +77,10 @@ span.info {
     margin-top: -1px;
     padding: 0;
 }
-
 #ingredients-list li.editing:last-child {
     margin-bottom: -1px;
 }
-
-li.editing .edit,
+#ingredients-list li.editing .edit,
 .addingredient {
     display: block;
     margin: 0;
